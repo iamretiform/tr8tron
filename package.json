@@ -1,0 +1,28 @@
+{
+  "name": "tr8tron",
+  "version": "1.0.0",
+  "description": "Real-time Audio Visualization Desktop App built on Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamretiform/tr8tron.git"
+  },
+  "keywords": [
+    "audio",
+    "visualization",
+    "electron",
+    "audio-visualization"
+  ],
+  "author": "Scott Plunkett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamretiform/tr8tron/issues"
+  },
+  "homepage": "https://github.com/iamretiform/tr8tron#readme",
+  "devDependencies": {
+    "electron": "^3.0.11"
+  }
+}
