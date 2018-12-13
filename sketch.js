@@ -1,4 +1,4 @@
-var mic, capture, canvas, slider, blur, exposure, blend, chroma;
+var mic, capture, canvas, slider, moblur, blur, exposure, blend, chroma;
 
 function setup() {
   canvas = createCanvas(1000,1000,WEBGL);
@@ -23,26 +23,31 @@ function setup() {
   blur = seriously.effect('blur');
   exposure = seriously.effect('exposure');
   blend = seriously.effect('blend');
-  blend.mode = 'difference'
+  blend.mode = 'darken'
   chroma = seriously.effect('chroma');
-  chroma.screen = [1 / 255, 244 / 255, 180 / 255, 1]
+  chroma.screen = [66 / 255, 93 / 255, 0 / 255, 1]
+  moblur = seriously.effect('directionblur');
   
   blur.source = videoSource;
-  exposure.source = blur;
-  blend.top = exposure;
-  blend.bottom = videoSource;
+  exposure.source = videoSource;
+  blend.top = blur;
+  blend.bottom = exposure;
   chroma.source = blend;
-  target.source = chroma;
+  moblur.source = chroma;
+  target.source = moblur;
   seriously.go();
 }
 
 function draw() {
   // Get the overall volume (between 0 and 1.0)
   var vol = mic.getLevel();
-  exposure.exposure = vol*vol+vol
-  blur.amount = vol
-  blend.opacity = (((vol + vol * vol) + vol * 2) * 2) + vol*vol
-  chroma.weight = (((vol + vol * vol) + vol * 4) * 8) + vol*vol
+  var h = map(vol, 0, 1, height, 0);
+  exposure.exposure = h*vol
+  blur.amount = h
+  blend.opacity = vol+vol*2
+  chroma.weight = vol/vol/h
+  moblur.amount = h*vol;
+  moblur.angle = (vol > .5) ? (vol*h/vol*h) : h
   // fill(127);
   // stroke(0);
   // Draw an ellipse with height based on volume
