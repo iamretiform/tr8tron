@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/iamretiform/tr8tron#readme",
   "devDependencies": {
-    "electron": "^3.0.11"
+    "electron": "^9.1.0"
   }
 }
